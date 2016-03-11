@@ -1,0 +1,9 @@
+/* Styles go here */
+.form-inline{
+  padding: 20px;
+  padding-top: 0;
+  padding-left: 0;
+}
+.checkbox{
+  margin-right: 10px;
+}

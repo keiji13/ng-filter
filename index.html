@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Angular Filter</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+  <script src="https://code.angularjs.org/1.4.1/angular.js"></script>
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-resource.js"></script>
+  <link rel="stylesheet" href="styles/style.css" />
+  <script src="scripts/app.js"></script>
+</head>
+
+<body ng-controller="AppCtrl as app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <form>
+          <div class="form-group">
+            <label for="search">Search by name</label>
+            <input ng-model="search.name" type="text" class="form-control" id="search" placeholder="Search by name">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-8">
+        <h5>Filter by department</h5>
+        <form class="form-inline">
+          <div class="checkbox" ng-repeat="deparment in app.filteredDepartments">
+            <label>
+              <input type="checkbox" ng-model="deparment.selected"> {{deparment.name}}
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Name</th>
+              <th>Initial</th>
+              <th>Department</th>
+              <th>Salary</th>
+              <th>Bonus</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="employee in employees | orderBy : app.orderByTotal | filter : app.filteredDepartment | searchName : search.name">
+              <td>{{employee.id}}</td>
+              <td>{{employee.firstName + ' ' + employee.lastName}}</td>
+              <td>{{employee.firstName + ' ' + employee.lastName | initials}}</td>
+              <td>{{employee.department}}</td>
+              <td>{{employee.salary | currency}}</td>
+              <td>{{employee.bonus | currency}}</td>
+              <td>{{employee.salary + employee.bonus | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
